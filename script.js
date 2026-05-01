@@ -16,7 +16,7 @@ const observer = new IntersectionObserver(
 
 revealElements.forEach(element => observer.observe(element));
 
-// Configure each plan checkout URL here when payment platform is ready.
+// Configure os URLs de checkout de cada plano quando a plataforma de pagamento estiver pronta.
 const CHECKOUT_LINKS = {
   'td-quadrimestral': 'https://pay.kiwify.com.br/lN2ro8c',
   'td-semestral': ' https://pay.kiwify.com.br/9r9nYLl',
@@ -30,10 +30,10 @@ const buyButtons = document.querySelectorAll('.buy-btn');
 
 buyButtons.forEach(button => {
   button.addEventListener('click', event => {
-    // If the anchor has a valid href (not '#'), let it open that URL.
+    // Se o link já tiver um href válido (e não for '#'), deixe abrir essa URL.
     const href = button.getAttribute('href');
     if (href && href !== '#') {
-      // allow normal navigation in a new tab to preserve existing behavior
+      // Mantém a navegação normal em uma nova aba para preservar o comportamento atual.
       window.open(href, '_blank', 'noopener,noreferrer');
       return;
     }
@@ -47,7 +47,7 @@ buyButtons.forEach(button => {
       return;
     }
 
-    alert('Checkout deste plano ainda nao configurado. Preencha o URL no arquivo script.js.');
+    alert('O checkout deste plano ainda não foi configurado. Preencha a URL no arquivo script.js.');
   });
 });
 
