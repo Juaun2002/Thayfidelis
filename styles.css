@@ -189,12 +189,20 @@ h3,
 }
 
 .eyebrow {
-  color: var(--ok);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #1a1f0a;
   text-transform: uppercase;
-  font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  margin-bottom: 10px;
+  font-weight: 900;
+  font-size: 0.84rem;
+  letter-spacing: 0.16em;
+  margin-bottom: 12px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--accent), color-mix(in oklab, var(--accent) 72%, white));
+  border: 1px solid color-mix(in oklab, var(--accent) 70%, white);
+  box-shadow: 0 10px 22px rgba(214, 202, 34, 0.28);
 }
 
 .hero h1 {
@@ -421,10 +429,17 @@ section {
 }
 
 .plan-tag {
-  font-weight: 800;
-  color: var(--ok);
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  color: #1a1f0a;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  background: linear-gradient(120deg, var(--accent), color-mix(in oklab, var(--accent) 72%, white));
+  border: 1px solid color-mix(in oklab, var(--accent) 70%, white);
+  box-shadow: 0 8px 18px rgba(214, 202, 34, 0.22);
 }
 
 .plan-card h3 {
