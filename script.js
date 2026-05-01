@@ -173,3 +173,22 @@ buyButtons.forEach(button => {
     }
   });
 })();
+
+// Calcular e preencher valores parcelados em 12x
+const planPrices = document.querySelectorAll('.plan-price');
+
+planPrices.forEach(priceElement => {
+  const priceText = priceElement.textContent.trim();
+  
+  // Remover R$, depois remover pontos (separadores de milhar) e converter vírgula em ponto
+  const priceValue = parseFloat(priceText.replace('R$', '').replace(/\./g, '').replace(',', '.').trim());
+  
+  if (!isNaN(priceValue)) {
+    const installmentValue = (priceValue / 12).toFixed(2);
+    const installmentElement = priceElement.nextElementSibling;
+    
+    if (installmentElement && installmentElement.classList.contains('plan-installment')) {
+      installmentElement.textContent = `ou 12x R$ ${installmentValue.replace('.', ',')}`;
+    }
+  }
+});

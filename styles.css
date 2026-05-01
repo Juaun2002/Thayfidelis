@@ -571,6 +571,16 @@ section {
   margin: 0 0 12px;
 }
 
+.plan-price-old {
+  color: #ff6b6b;
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: #ff3b30;
+  text-decoration-skip-ink: none;
+  margin-bottom: 6px;
+  opacity: 0.95;
+}
+
 .plan-card ul {
   list-style: none;
   padding: 0;
