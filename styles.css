@@ -383,6 +383,124 @@ section {
   padding: 22px;
 }
 
+.plan-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px 0 12px;
+}
+.plan-selector .selector-label {
+  font-weight: 800;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.plan-selector .selector-options {
+  display: flex;
+  gap: 10px;
+}
+
+.plan-selector .option {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.plan-selector .option.active {
+  background: linear-gradient(120deg, var(--accent), color-mix(in oklab, var(--accent) 60%, white));
+  color: #101923;
+  border-color: color-mix(in oklab, var(--accent) 80%, white);
+  box-shadow: 0 10px 20px rgba(214, 202, 34, 0.18);
+}
+
+.plan-details {
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent) 18%, var(--line));
+  padding: 18px 20px;
+  border-radius: 12px;
+  margin: 8px 0 18px;
+  color: var(--text);
+}
+.plan-details-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+@media (min-width: 960px) {
+  .plan-details-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.detail-column {
+  padding: 4px 2px;
+}
+.detail-column + .detail-column {
+  border-top: 1px solid color-mix(in oklab, var(--line) 70%, transparent);
+  padding-top: 16px;
+}
+@media (min-width: 960px) {
+  .detail-column + .detail-column {
+    border-top: 0;
+    border-left: 1px solid color-mix(in oklab, var(--line) 70%, transparent);
+    padding-top: 4px;
+    padding-left: 18px;
+  }
+}
+.detail-title {
+  margin: 0 0 12px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.plan-details ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.plan-details li {
+  padding-left: 0;
+  position: relative;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+.plan-details li::before {
+  content: "\2022";
+  color: var(--accent);
+  font-weight: 900;
+  display: inline-block;
+  width: 1.2em;
+  margin-right: 8px;
+}
+.plan-details strong {
+  font-weight: 800;
+  color: var(--text);
+}
+.detail-note {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.4;
+}
+.plan-brief {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin: 14px 0 0;
+  text-align: center;
+}
+
 .plan-card.popular {
   outline: 2px solid color-mix(in oklab, var(--accent) 50%, white);
   transform: translateY(-3px);
