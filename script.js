@@ -16,10 +16,10 @@ const observer = new IntersectionObserver(
 
 revealElements.forEach(element => observer.observe(element));
 
-// Configure os URLs de checkout de cada plano quando a plataforma de pagamento estiver pronta.
+// Configure os URLs de checkout de cada plano
 const CHECKOUT_LINKS = {
   'td-quadrimestral': 'https://pay.kiwify.com.br/lN2ro8c',
-  'td-semestral': ' https://pay.kiwify.com.br/9r9nYLl',
+  'td-semestral': 'https://pay.kiwify.com.br/9r9nYLl',
   'td-anual': 'https://pay.kiwify.com.br/Y9hK6ya',
   't-mensal': 'https://pay.kiwify.com.br/yvT0okE',
   't-trimestral': 'https://pay.kiwify.com.br/ZcnthD9',
@@ -30,10 +30,8 @@ const buyButtons = document.querySelectorAll('.buy-btn');
 
 buyButtons.forEach(button => {
   button.addEventListener('click', event => {
-    // Se o link já tiver um href válido (e não for '#'), deixe abrir essa URL.
     const href = button.getAttribute('href');
     if (href && href !== '#') {
-      // Mantém a navegação normal em uma nova aba para preservar o comportamento atual.
       window.open(href, '_blank', 'noopener,noreferrer');
       return;
     }
@@ -51,7 +49,7 @@ buyButtons.forEach(button => {
   });
 });
 
-// Antes/Depois slider navigation (supports multiple sliders)
+// Slider navigation
 (() => {
   const wrappers = document.querySelectorAll('.slider-wrapper');
   if (!wrappers.length) return;
@@ -149,7 +147,6 @@ buyButtons.forEach(button => {
       });
     });
 
-    // init
     updateSlider(0);
   });
 
@@ -161,34 +158,56 @@ buyButtons.forEach(button => {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOpen) {
-      closeOverlay();
-      return;
-    }
-    if (!currentInstance) return;
-    if (e.key === 'ArrowRight') {
-      currentInstance.nextSlide();
-    } else if (e.key === 'ArrowLeft') {
-      currentInstance.prevSlide();
-    }
+    if (e.key === 'ArrowRight' && currentInstance) currentInstance.nextSlide();
+    if (e.key === 'ArrowLeft' && currentInstance) currentInstance.prevSlide();
+    if (e.key === 'Escape' && modalOpen) closeOverlay();
   });
 })();
 
-// Calcular e preencher valores parcelados em 12x
-const planPrices = document.querySelectorAll('.plan-price');
-
-planPrices.forEach(priceElement => {
-  const priceText = priceElement.textContent.trim();
-  
-  // Remover R$, depois remover pontos (separadores de milhar) e converter vírgula em ponto
-  const priceValue = parseFloat(priceText.replace('R$', '').replace(/\./g, '').replace(',', '.').trim());
-  
-  if (!isNaN(priceValue)) {
-    const installmentValue = (priceValue / 12).toFixed(2);
-    const installmentElement = priceElement.nextElementSibling;
+// Cálculo automático de parcelas (12x)
+const calcularParcelas = () => {
+  try {
+    const planCards = document.querySelectorAll('.plan-card');
     
-    if (installmentElement && installmentElement.classList.contains('plan-installment')) {
-      installmentElement.textContent = `ou 12x R$ ${installmentValue.replace('.', ',')}`;
-    }
+    planCards.forEach((card) => {
+      const priceElements = card.querySelectorAll('.plan-price');
+      const installmentElement = card.querySelector('.plan-installment');
+      
+      if (priceElements.length === 0 || !installmentElement) return;
+      
+      // Se já tem valor preenchido, não sobrescrever (para valores com taxa específica)
+      if (installmentElement.textContent.trim()) return;
+      
+      const lastPriceElement = priceElements[priceElements.length - 1];
+      const priceText = lastPriceElement.textContent.trim();
+      
+      const cleanPrice = priceText.replace('até 12x', '').trim();
+      const priceMatch = cleanPrice.match(/R\$\s*([\d.,]+)/);
+      
+      if (!priceMatch) return;
+      
+      const priceNumber = parseFloat(priceMatch[1].replace('.', '').replace(',', '.'));
+      
+      if (isNaN(priceNumber)) return;
+      
+      const installmentValue = priceNumber / 12;
+      const formattedInstallment = installmentValue.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      
+      installmentElement.textContent = `ou 12x ${formattedInstallment}`;
+    });
+  } catch (error) {
+    console.error('Erro ao calcular parcelas:', error);
   }
-});
+};
+
+// Executa quando o DOM está pronto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', calcularParcelas);
+} else {
+  calcularParcelas();
+}

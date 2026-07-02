@@ -381,6 +381,7 @@ section {
 .plan-card {
   position: relative;
   padding: 22px;
+  overflow: hidden;
 }
 
 .plan-selector {
@@ -969,6 +970,24 @@ section {
   letter-spacing: 0.05em;
   color: var(--muted);
   margin: 6px 0 2px;
+}
+
+/* Yellow Ribbon - + Vantagens */
+.plan-card .ribbon {
+  background-color: #f7ff38;
+  color: #000000;
+  font-weight: 900;
+  font-size: 1rem;
+  text-align: center;
+  padding: 8px 0;
+  position: absolute;
+  top: 30px;
+  right: -50px;
+  width: 200px;
+  transform: rotate(45deg);
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
 }
 
 
